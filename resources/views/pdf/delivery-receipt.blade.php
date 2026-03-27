@@ -23,7 +23,11 @@
                 @endif
             </td>
             <td style="width: 40%; vertical-align: top; text-align: right; border: none; padding: 0;">
-                <div style="font-size: 12px; font-weight: bold;">
+                <div style="font-size: 11px; margin-bottom: 4px;">
+                    <span style="font-weight: bold;">Control No:</span>
+                    {!! $document->formatted_control_number !!}
+                </div>
+                <div style="font-size: 11px; font-weight: bold;">
                     DATE: {{ $document->document_date->format('F d, Y') }}
                 </div>
             </td>

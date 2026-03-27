@@ -28,15 +28,14 @@
                 </div>
                 <div>
                     <span style="font-weight: bold;">CONTROL #</span>
-                    <span
-                        style="font-size: 16px; font-weight: bold; color: #c00;">{!! $document->formatted_control_number !!}</span>
+                    {!! $document->formatted_control_number !!}
                 </div>
             </td>
         </tr>
     </table>
 
     @php
-        $showPricing = $document->items->whereNotNull('unit_cost')->where('unit_cost', '>', 0)->count() > 0;
+        $showPricing = true;
         $itemsPerPage = 10;
         $itemChunks = $document->items->chunk($itemsPerPage);
         $totalChunks = $itemChunks->count();

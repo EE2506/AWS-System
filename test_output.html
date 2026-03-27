@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            margin: 170px 25px 210px 25px;
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 200px 20px 10px 20px;
+        }
+
+        /* Header Section with Logo */
+        .header-section {
+            text-align: center;
+            padding: 10px 0 15px 0;
+            border-bottom: 2px solid #1e40af;
+            margin-bottom: 20px;
+        }
+
+        .logo-img {
+            max-height: 130px;
+            width: auto;
+        }
+
+        /* Fixed Header - repeats on every page */
+        .header-fixed {
+            position: fixed;
+            top: 0px;
+            left: 0;
+            right: 0;
+            height: 140px;
+            text-align: center;
+            border-bottom: 2px solid #1e40af;
+            background-color: white;
+            padding: 10px 25px;
+        }
+
+        /* Sticky Footer at bottom of page */
+        .footer-fixed {
+            position: fixed;
+            bottom: 10px;
+            left: 25px;
+            right: 25px;
+            height: 50px;
+            text-align: center;
+            color: #64748b;
+            font-size: 9px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 8px;
+            background-color: white;
+        }
+
+        .footer-fixed p {
+            margin: 2px 0;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e40af;
+        }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 5px;
+        }
+
+        .company-tagline {
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .document-type {
+            font-size: 18px;
+            font-weight: bold;
+            color: #334155;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        /* Document Info */
+        .document-info {
+            display: table;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .info-left,
+        .info-right {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+        }
+
+        .info-right {
+            text-align: right;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        /* Recipient Box */
+        .recipient-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .recipient-title {
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        /* Items Table */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .items-table th {
+            background-color: #1e40af;
+            color: white;
+            padding: 10px 8px;
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .items-table th:nth-child(1) {
+            width: 5%;
+        }
+
+        .items-table th:nth-child(4),
+        .items-table th:nth-child(5) {
+            text-align: right;
+        }
+
+        .items-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .items-table td:nth-child(4),
+        .items-table td:nth-child(5) {
+            text-align: right;
+        }
+
+        .items-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Totals */
+        .totals-section {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .totals-table {
+            display: inline-table;
+            text-align: right;
+        }
+
+        .totals-row {
+            display: table-row;
+        }
+
+        .totals-label,
+        .totals-value {
+            display: table-cell;
+            padding: 5px 10px;
+        }
+
+        .totals-label {
+            font-weight: bold;
+            color: #64748b;
+        }
+
+        .totals-value {
+            min-width: 120px;
+        }
+
+        .grand-total {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1e40af;
+            border-top: 2px solid #1e40af;
+            padding-top: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 10px;
+        }
+
+        /* Signatures */
+        .signatures {
+            margin-top: 60px;
+            display: table;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Fixed Footer at bottom of every page -->
+    <div class="footer-fixed">
+        <p style="font-style: italic;">"The Lord detests dishonest scales, but He delights in accurate weights." —
+            Proverbs 11:1</p>
+        <p>&copy; 2026 AWS Document System | HVAC Installation • Maintenance • Servicing</p>
+    </div>
+
+    <!-- Fixed Header at top of every page -->
+    <div class="header-fixed">
+        <img src="D:\1.Projects --By DJ\1. Laravel Project\AWS-System\public\images/logo.jpg" alt="AWS Document System" class="logo-img">
+    </div>
+
+    <div class="container">
+            <!-- Title centered at top -->
+    <div style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
+        <span style="font-size: 16px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Quotation</span>
+    </div>
+
+    <!-- TO / Address on left, Date / Control # on right -->
+    <table style="width: 100%; margin-bottom: 20px; font-size: 11px; border-collapse: collapse;">
+        <tr>
+            <td style="width: 55%; vertical-align: top; padding: 3px 0;">
+                <div style="margin-bottom: 5px;">
+                    <span style="font-weight: bold;">TO:</span>
+                    <span style="text-transform: uppercase; font-weight: bold;">asdasdasd</span>
+                </div>
+                                    <div>
+                        <span style="font-weight: bold;">ADDRESS:</span>
+                        <span style="text-transform: uppercase;">12312</span>
+                    </div>
+                            </td>
+            <td style="width: 45%; text-align: right; vertical-align: top; padding: 3px 0;">
+                <div style="margin-bottom: 4px;">
+                    <span style="font-weight: bold;">DATE:</span>
+                    <span style="font-weight: bold;">Mar. 25, 2026</span>
+                </div>
+                <div>
+                    <span style="font-weight: bold;">CONTROL #</span>
+                    <span style="color: #CC0000; font-weight: normal;">Q-0002</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    
+            <!-- Items Table -->
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; margin-bottom: 10px;">
+            <thead>
+                <tr>
+                    <th
+                        style="border: 1px solid #000; padding: 8px; text-align: center; width: 8%; background-color: #ffffff; color: #000; font-size: 10px;">
+                        QTY.</th>
+                    <th
+                        style="border: 1px solid #000; padding: 8px; text-align: center; width: 10%; background-color: #ffffff; color: #000; font-size: 10px;">
+                        Unit</th>
+                    <th
+                        style="border: 1px solid #000; padding: 8px; text-align: center; background-color: #ffffff; color: #000; font-size: 10px;">
+                        Description / Details of Item</th>
+                                        <th
+                        style="border: 1px solid #000; padding: 8px; text-align: center; width: 13%; background-color: #ffffff; color: #000; font-size: 10px;">
+                        Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px 4px; text-align: center; vertical-align: top;">
+                            1</td>
+                        <td
+                            style="border: 1px solid #000; padding: 6px 4px; text-align: center; vertical-align: top; text-transform: uppercase;">
+                            UNIT</td>
+                        <td style="border: 1px solid #000; padding: 6px 8px; vertical-align: top;">
+                            <div style="font-weight: bold; text-transform: uppercase;">asdasd</div>
+                                                    </td>
+                                                <td style="border: 1px solid #000; padding: 6px 4px; text-align: center; vertical-align: top;">
+                            </td>
+                    </tr>
+                
+                
+                                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 8px;">&nbsp;</td>
+                                                <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                    </tr>
+                                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 8px;">&nbsp;</td>
+                                                <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                    </tr>
+                                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 8px;">&nbsp;</td>
+                                                <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                    </tr>
+                                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 8px;">&nbsp;</td>
+                                                <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                    </tr>
+                                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 8px;">&nbsp;</td>
+                                                <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                    </tr>
+                                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 8px;">&nbsp;</td>
+                                                <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                    </tr>
+                                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 8px;">&nbsp;</td>
+                                                <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                    </tr>
+                                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 8px;">&nbsp;</td>
+                                                <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                    </tr>
+                                    <tr>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                        <td style="border: 1px solid #000; padding: 6px 8px;">&nbsp;</td>
+                                                <td style="border: 1px solid #000; padding: 6px 4px;">&nbsp;</td>
+                    </tr>
+                            </tbody>
+        </table>
+
+            
+    
+    
+    <!-- Signature Section -->
+    <table style="width: 90%; font-size: 10px; border-collapse: collapse; position: absolute; bottom: 130px; left: 40px; right: 80px;">
+        <tr>
+            <td style="width: 50%; vertical-align: bottom; padding-right: 30px;">
+                <div style="margin-bottom: 5px;">Prepared by: _______________________________</div>
+                <div style="font-size: 9px; padding-left: 75px;">Signature Over Printed Name</div>
+            </td>
+            <td style="width: 50%; vertical-align: bottom; text-align: right; padding-left: 30px;">
+                <div style="margin-bottom: 5px;">Approved by: _______________________________</div>
+                <div style="font-size: 9px; padding-right: 30px;">Signature Over Printed Name</div>
+            </td>
+        </tr>
+    </table>
+    </div>
+</body>
+
+</html>

@@ -25,12 +25,11 @@
             <td style="width: 45%; text-align: right; vertical-align: top; padding: 3px 0;">
                 <div style="margin-bottom: 4px;">
                     <span style="font-weight: bold;">Control No.</span>
-                    <span
-                        style="font-size: 16px; font-weight: bold; color: #c00;">{!! $document->formatted_control_number !!}</span>
+                    {!! $document->formatted_control_number !!}
                 </div>
                 <div>
                     <span style="font-weight: bold;">Date:</span>
-                    <span>{{ $document->document_date->format('n/d/Y') }}</span>
+                    <span style="font-weight: bold;">{{ $document->document_date->format('F d, Y') }}</span>
                 </div>
             </td>
         </tr>
@@ -65,7 +64,8 @@
                 @foreach($chunk as $item)
                     <tr>
                         <td style="border: 1px solid #000; padding: 6px 4px; text-align: center; vertical-align: top;">
-                            {{ $item->quantity }}</td>
+                            {{ $item->quantity }}
+                        </td>
                         <td
                             style="border: 1px solid #000; padding: 6px 4px; text-align: center; vertical-align: top; text-transform: uppercase;">
                             UNIT</td>
@@ -77,7 +77,8 @@
                             @endif
                         </td>
                         <td style="border: 1px solid #000; padding: 6px 4px; text-align: center; vertical-align: top;">
-                            {{ $item->remarks ?? '' }}</td>
+                            {{ $item->remarks ?? '' }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

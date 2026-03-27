@@ -15,13 +15,13 @@
             </td>
             <td style="width: 40%; text-align: right; vertical-align: top;">
                 <div><strong>SOA #</strong> {!! $document->formatted_control_number !!}</div>
-                <div><strong>Date:</strong> {{ $document->document_date->format('F d, Y') }}</div>
+                <div style="font-weight: bold;"><strong>Date:</strong> {{ $document->document_date->format('F d, Y') }}</div>
             </td>
         </tr>
     </table>
 
     @php
-        $showPricing = $document->items->whereNotNull('unit_cost')->where('unit_cost', '>', 0)->count() > 0;
+        $showPricing = true;
         $itemsPerPage = 10;
         $itemChunks = $document->items->chunk($itemsPerPage);
         $totalChunks = $itemChunks->count();
@@ -78,7 +78,7 @@
                         <div><strong>Name:</strong> {{ $document->recipient_name }}</div>
                     </td>
                     <td style="width: 40%; text-align: right; vertical-align: top;">
-                        <div><strong>SOA no.</strong> {{ $document->control_number ?? 'N/A' }}</div>
+                        <div><strong>SOA no.</strong> {!! $document->formatted_control_number !!}</div>
                         <div><strong>Page:</strong> {{ $chunkIndex + 2 }} of {{ $totalChunks }}</div>
                     </td>
                 </tr>
