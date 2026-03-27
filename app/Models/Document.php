@@ -151,7 +151,7 @@ class Document extends Model
     }
 
     /**
-     * Get the formatted control number with bold letters for PDFs.
+     * Get the formatted control number with red color for PDFs.
      */
     public function getFormattedControlNumberAttribute(): string
     {
@@ -159,11 +159,8 @@ class Document extends Model
             return 'N/A';
         }
 
-        $parts = explode('-', strtoupper($this->control_number));
-        if (count($parts) === 2) {
-            return '<span style="font-weight: bold;">' . $parts[0] . '</span>-<span style="font-weight: normal;">' . $parts[1] . '</span>';
-        }
-
-        return preg_replace('/([a-zA-Z]+)/', '<span style="font-weight: bold;">$1</span>', strtoupper($this->control_number));
+        return '<span style="color: #CC0000; font-weight: normal; font-size: 11px;">'
+            . e($this->control_number)
+            . '</span>';
     }
 }

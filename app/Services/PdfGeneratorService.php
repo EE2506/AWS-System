@@ -13,6 +13,10 @@ class PdfGeneratorService
      */
     public function generate(Document $document): \Barryvdh\DomPDF\PDF
     {
+        // Dompdf can be slow on first run (font caching, autoloading).
+        // Raise the limit only for this request so we don't hit the 30s wall.
+        set_time_limit(120);
+
         $template = match ($document->type) {
             Document::TYPE_SOA => 'pdf.soa',
             Document::TYPE_PURCHASE_ORDER => 'pdf.purchase-order',
@@ -49,17 +53,23 @@ class PdfGeneratorService
      */
     protected function generateFilename(Document $document): string
     {
+        // Human-readable document type label
         $typeLabel = match ($document->type) {
-            Document::TYPE_SOA              => 'S',
-            Document::TYPE_PURCHASE_ORDER   => 'PO',
-            Document::TYPE_QUOTATION        => 'Q',
-            Document::TYPE_DELIVERY_RECEIPT => 'DR',
+            Document::TYPE_SOA              => 'SOA',
+            Document::TYPE_PURCHASE_ORDER   => 'Purchase-Order',
+            Document::TYPE_QUOTATION        => 'Quotation',
+            Document::TYPE_DELIVERY_RECEIPT => 'Delivery-Receipt',
             default                         => 'Document',
         };
 
-        $controlNumber = $document->control_number ?? $document->id;
-        $date = now()->format('Ymd');
+        // Sanitize recipient name: strip invalid chars, spaces → underscores, trim
+        $recipientName = $document->recipient_name ?? 'Unknown';
+        $recipientName = preg_replace('/[^a-zA-Z0-9 \-_]/', '', $recipientName);
+        $recipientName = str_replace(' ', '_', $recipientName);
+        $recipientName = trim($recipientName, '_-');
 
-        return sprintf('%s-%s-%s.pdf', $typeLabel, $controlNumber, $date);
+        $controlNumber = $document->control_number ?? 'NO-REF';
+
+        return sprintf('%s-%s-%s.pdf', $recipientName, $typeLabel, $controlNumber);
     }
 }
