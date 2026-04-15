@@ -36,6 +36,7 @@
 
     @php
         $showPricing = true;
+        $showRemarks = $document->items->contains(fn($item) => !empty($item->remarks));
         $itemsPerPage = 10;
         $itemChunks = $document->items->chunk($itemsPerPage);
         $totalChunks = $itemChunks->count();
@@ -63,9 +64,11 @@
                             style="border: 1px solid #000; padding: 8px; text-align: center; width: 12%; background-color: #ffffff; color: #000; font-size: 10px;">
                             Total</th>
                     @endif
-                    <th
-                        style="border: 1px solid #000; padding: 8px; text-align: center; width: 13%; background-color: #ffffff; color: #000; font-size: 10px;">
-                        Remarks</th>
+                    @if($showRemarks)
+                        <th
+                            style="border: 1px solid #000; padding: 8px; text-align: center; width: 13%; background-color: #ffffff; color: #000; font-size: 10px;">
+                            Remarks</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -89,8 +92,10 @@
                             <td style="border: 1px solid #000; padding: 6px 4px; text-align: right; vertical-align: top;">
                                 {{ number_format($item->total_cost, 2) }}</td>
                         @endif
-                        <td style="border: 1px solid #000; padding: 6px 4px; text-align: center; vertical-align: top;">
-                            {{ $item->remarks ?? '' }}</td>
+                        @if($showRemarks)
+                            <td style="border: 1px solid #000; padding: 6px 4px; text-align: center; vertical-align: top;">
+                                {{ $item->remarks ?? '' }}</td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

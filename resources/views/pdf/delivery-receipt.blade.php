@@ -24,7 +24,7 @@
             </td>
             <td style="width: 40%; vertical-align: top; text-align: right; border: none; padding: 0;">
                 <div style="font-size: 11px; margin-bottom: 4px;">
-                    <span style="font-weight: bold;">Control No:</span>
+                    <span style="font-weight: bold;">CONTROL #:</span>
                     {!! $document->formatted_control_number !!}
                 </div>
                 <div style="font-size: 11px; font-weight: bold;">
