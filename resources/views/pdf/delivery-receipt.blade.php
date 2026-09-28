@@ -35,7 +35,7 @@
     </table>
 
     <!-- Items Table -->
-    <table class="items-table" style="margin-top: 20px; border-collapse: collapse; width: 100%;">
+    <table class="items-table" style="margin-top: 20px; border-collapse: collapse; width: 100%; table-layout: fixed;">
         <thead>
             <tr>
                 <th
@@ -51,7 +51,7 @@
                 <tr>
                     <td style="text-align: center; vertical-align: middle; border: 1px solid black; padding: 5px;">
                         {{ $item->quantity }}</td>
-                    <td style="text-align: center; border: 1px solid black; padding: 5px;">
+                    <td style="text-align: center; border: 1px solid black; padding: 5px; word-break: break-word; overflow-wrap: break-word; white-space: normal;">
                         <div style="font-weight: bold; text-transform: uppercase;">{{ $item->name }}</div>
                         @if($item->description)
                             <div style="font-size: 0.9em; text-transform: uppercase; margin-top: 2px;">{{ $item->description }}
@@ -71,7 +71,7 @@
     <!-- Footer / Received By -->
     <div style="position: absolute; bottom: 130px; left: 40px; right: 80px;">
         <div style="border-top: 1px solid #000; width: 250px; padding-top: 5px;">
-            <div style="font-weight: bold; font-size: 11px;">RECEIVED BY:</div>
+            <div style="font-weight: bold; font-size: 11px;">RECEIVED BY: _______________________________</div>
         </div>
     </div>
 @endsection

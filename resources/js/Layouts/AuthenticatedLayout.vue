@@ -95,7 +95,7 @@ const bottomNavItems = [
                     <!-- Mini logo when collapsed -->
                     <img 
                         v-if="sidebarCollapsed" 
-                        src="/images/logo-trans-mini.png" 
+                        src="/images/logo-Crop.jpg" 
                         alt="AWS System" 
                         class="h-10 w-auto shrink-0"
                     />

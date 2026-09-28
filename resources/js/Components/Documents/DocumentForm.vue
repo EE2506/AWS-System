@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watch, ref } from 'vue';
+import { computed, watch, ref, nextTick, onMounted } from 'vue';
 import { useForm, Link } from '@inertiajs/vue3';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -102,6 +102,7 @@ const grandTotal = computed(() => {
 
 const addItem = () => {
     form.items.push({ description: '', quantity: 1, unit_cost: 0, remarks: '' });
+    nextTick(() => adjustAllTextareas());
 };
 
 const removeItem = (index) => {
@@ -117,6 +118,57 @@ const submit = () => {
         form.post(route('documents.store'));
     }
 };
+
+// Auto-resize helpers for description textarea
+// Behavior: expand as needed, but never shrink below the largest height seen
+const adjustAllTextareas = () => {
+    // scope to this component: find textareas with data-autoresize
+    document.querySelectorAll('textarea[data-autoresize]').forEach((el) => {
+        // ensure we have a baseline max height (don't shrink below original)
+        // default baseline: twice the current offsetHeight so textarea appears 2x larger initially
+        const baseline = el.dataset.maxHeight ? parseInt(el.dataset.maxHeight, 10) : Math.max(el.offsetHeight * 2, el.offsetHeight);
+
+        // measure required height
+        el.style.height = 'auto';
+        const required = el.scrollHeight;
+
+        // update stored max if required is larger
+        const newMax = Math.max(baseline, required);
+        el.dataset.maxHeight = String(newMax);
+
+        // set the visible height to the stored max (never shrink)
+        el.style.height = `${newMax}px`;
+    });
+};
+
+const autoResize = (e) => {
+    const el = e.target;
+
+    // get previously stored max or current offset as baseline
+    const prevMax = el.dataset.maxHeight ? parseInt(el.dataset.maxHeight, 10) : Math.max(el.offsetHeight * 2, el.offsetHeight);
+
+    // temporarily let content determine natural height
+    el.style.height = 'auto';
+    const required = el.scrollHeight;
+
+    // if content needs more space, grow and update stored max
+    if (required > prevMax) {
+        el.dataset.maxHeight = String(required);
+        el.style.height = `${required}px`;
+    } else {
+        // otherwise keep the previous max so it doesn't shrink
+        el.style.height = `${prevMax}px`;
+    }
+};
+
+onMounted(() => {
+    nextTick(() => adjustAllTextareas());
+});
+
+// when descriptions change (add/remove), adjust heights
+watch(() => form.items.map(i => i.description), () => {
+    nextTick(() => adjustAllTextareas());
+});
 </script>
 
 <template>
@@ -269,7 +321,14 @@ const submit = () => {
                             <InputError :message="form.errors[`items.${index}.name`]" class="mt-1" />
                             
                             <InputLabel :value="`Description (Optional)`" class="mb-1 mt-2" />
-                            <TextInput v-model="item.description" type="text" class="w-full text-sm text-gray-500" placeholder="Description" />
+                            <textarea
+                                v-model="item.description"
+                                class="w-full text-sm text-gray-500 border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 focus:border-cyan-500 focus:ring-cyan-500 rounded-lg shadow-sm transition-all duration-300 px-3 py-2"
+                                placeholder="Description"
+                                rows="2"
+                                data-autoresize
+                                @input="autoResize"
+                            ></textarea>
                             <InputError :message="form.errors[`items.${index}.description`]" class="mt-1" />
                          </div>
                          
@@ -319,7 +378,14 @@ const submit = () => {
                             <td class="py-3 px-2">
                                 <TextInput v-model="item.name" type="text" class="w-full text-sm mb-1" placeholder="Item Name" />
                                 <InputError :message="form.errors[`items.${index}.name`]" class="mt-1" />
-                                <TextInput v-model="item.description" type="text" class="w-full text-xs text-gray-500" placeholder="Description (Optional)" />
+                                <textarea
+                                    v-model="item.description"
+                                    class="w-full text-xs text-gray-500 border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 focus:border-cyan-500 focus:ring-cyan-500 rounded-lg shadow-sm transition-all duration-300 px-2 py-1"
+                                    placeholder="Description (Optional)"
+                                    rows="2"
+                                    data-autoresize
+                                    @input="autoResize"
+                                ></textarea>
                                 <InputError :message="form.errors[`items.${index}.description`]" class="mt-1" />
                             </td>
                             <td class="py-3 px-2">
@@ -348,6 +414,16 @@ const submit = () => {
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="mt-2 flex justify-start ml-14">
+                <button
+                    type="button"
+                    @click="addItem"
+                    class="px-3 py-1 text-sm font-medium text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-900/30 rounded hover:bg-cyan-100 dark:hover:bg-cyan-900/50 transition-colors"
+                >
+                    + Add Item
+                </button>
             </div>
 
             <!-- Totals -->

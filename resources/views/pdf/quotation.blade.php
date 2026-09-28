@@ -44,7 +44,7 @@
 
     @foreach($itemChunks as $chunkIndex => $chunk)
         <!-- Items Table -->
-        <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; margin-bottom: 10px;">
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; margin-bottom: 10px; table-layout: fixed;">
             <thead>
                 <tr>
                     <th
@@ -54,7 +54,7 @@
                         style="border: 1px solid #000; padding: 8px; text-align: center; width: 10%; background-color: #ffffff; color: #000; font-size: 10px;">
                         Unit</th>
                     <th
-                        style="border: 1px solid #000; padding: 8px; text-align: center; background-color: #ffffff; color: #000; font-size: 10px;">
+                        style="border: 1px solid #000; padding: 8px; text-align: center; background-color: #ffffff; color: #000; font-size: 10px; width: 52%; word-break: break-word; overflow-wrap: break-word; white-space: normal;">
                         Description / Details of Item</th>
                     @if($showPricing)
                         <th
@@ -79,7 +79,7 @@
                         <td
                             style="border: 1px solid #000; padding: 6px 4px; text-align: center; vertical-align: top; text-transform: uppercase;">
                             UNIT</td>
-                        <td style="border: 1px solid #000; padding: 6px 8px; vertical-align: top;">
+                        <td style="border: 1px solid #000; padding: 6px 8px; vertical-align: top; word-break: break-word; overflow-wrap: break-word; white-space: normal;">
                             <div style="font-weight: bold; text-transform: uppercase;">{{ $item->name }}</div>
                             @if($item->description)
                                 <div style="font-size: 0.9em; text-transform: uppercase; margin-top: 2px;">{{ $item->description }}

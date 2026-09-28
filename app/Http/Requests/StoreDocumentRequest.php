@@ -13,7 +13,7 @@ class StoreDocumentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        return $this->user() !== null;
     }
 
     /**
@@ -36,10 +36,10 @@ class StoreDocumentRequest extends FormRequest
             // Items validation
             'items' => ['nullable', 'array'],
             'items.*.name' => ['required_with:items', 'string', 'max:255'],
-            'items.*.description' => ['nullable', 'string', 'max:500'],
+            'items.*.description' => ['nullable', 'string', 'max:2000'],
             'items.*.quantity' => ['nullable', 'integer', 'min:1'],
             'items.*.unit_cost' => ['nullable', 'numeric', 'min:0'],
-            'items.*.remarks' => ['nullable', 'string', 'max:500'],
+            'items.*.remarks' => ['nullable', 'string', 'max:2000'],
         ];
 
         if ($this->user()->hasRole('admin')) {

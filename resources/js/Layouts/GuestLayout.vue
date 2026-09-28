@@ -1,5 +1,4 @@
 <script setup>
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { Link } from '@inertiajs/vue3';
 </script>
 
@@ -9,7 +8,11 @@ import { Link } from '@inertiajs/vue3';
     >
         <div class="mb-10 w-full flex justify-center px-4">
             <Link href="/" class="w-full max-w-4xl">
-                <ApplicationLogo class="w-full h-auto max-h-48 fill-current text-gray-500" />
+                <img
+                    src="/images/logo-Crop.jpg"
+                    alt="Company Logo"
+                    class="w-full h-auto max-h-48 object-contain"
+                />
             </Link>
         </div>
 

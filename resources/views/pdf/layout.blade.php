@@ -39,7 +39,7 @@
 
         .logo-img {
             max-height: 130px;
-            width: auto;
+            width: 700px;
         }
 
         /* Fixed Header - repeats on every page */

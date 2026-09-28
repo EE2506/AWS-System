@@ -176,7 +176,7 @@ const isExpiringSoon = computed(() => props.daysRemaining !== null && props.days
                             </span>
                         </div>
                         <div class="font-medium text-gray-900 dark:text-white">{{ item.name }}</div>
-                        <div class="text-sm text-gray-600 dark:text-gray-400" v-if="item.description">{{ item.description }}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-wrap" v-if="item.description">{{ item.description }}</div>
                         <div class="text-xs text-gray-500 italic" v-if="item.remarks">{{ item.remarks }}</div>
                         <div class="text-sm text-gray-600 dark:text-gray-400 flex justify-between">
                             <span>{{ item.quantity }} x ₱{{ Number(item.unit_cost).toLocaleString(undefined, { minimumFractionDigits: 2 }) }}</span>
@@ -201,7 +201,7 @@ const isExpiringSoon = computed(() => props.daysRemaining !== null && props.days
                                 <td class="px-6 py-4 text-gray-500">{{ index + 1 }}</td>
                                 <td class="px-6 py-4">
                                     <div class="font-medium text-gray-900 dark:text-white">{{ item.name }}</div>
-                                    <div class="text-sm text-gray-600 dark:text-gray-400" v-if="item.description">{{ item.description }}</div>
+                                    <div class="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-wrap" v-if="item.description">{{ item.description }}</div>
                                     <div class="text-xs text-gray-500 mt-1" v-if="item.remarks">{{ item.remarks }}</div>
                                 </td>
                                 <td class="px-6 py-4 text-center text-gray-600 dark:text-gray-300">{{ item.quantity }}</td>

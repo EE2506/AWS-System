@@ -29,11 +29,11 @@
 
     @foreach($itemChunks as $chunkIndex => $chunk)
         <!-- Items Table with bordered rows -->
-        <table class="items-table" style="border: 1px solid #000;">
+        <table class="items-table" style="border: 1px solid #000; table-layout: fixed; width: 100%; border-collapse: collapse;">
             <thead>
                 <tr style="background-color: #fff; color: #000; border-bottom: 1px solid #000;">
                     <th style="background-color: #fff; color: #000; border: 1px solid #000; padding: 8px; text-align: center; width: 8%;">ITEM</th>
-                    <th style="background-color: #fff; color: #000; border: 1px solid #000; padding: 8px; text-align: left;">DESCRIPTION</th>
+                    <th style="background-color: #fff; color: #000; border: 1px solid #000; padding: 8px; text-align: left; width: 52%; word-break: break-word; overflow-wrap: break-word; white-space: normal;">DESCRIPTION</th>
                     @if($showPricing)
                         <th style="background-color: #fff; color: #000; border: 1px solid #000; padding: 8px; text-align: center; width: 10%;">QTY</th>
                         <th style="background-color: #fff; color: #000; border: 1px solid #000; padding: 8px; text-align: right; width: 15%;">UNIT COST</th>
@@ -46,7 +46,7 @@
                     <tr>
                         <td style="border: 1px solid #000; padding: 6px; text-align: center;">
                             {{ str_pad($item->item_number, 2, '0', STR_PAD_LEFT) }}</td>
-                        <td style="border: 1px solid #000; padding: 6px;">
+                        <td style="border: 1px solid #000; padding: 6px; word-break: break-word; overflow-wrap: break-word; white-space: normal;">
                             <div>{{ $item->name }}</div>
                             @if($item->description)
                                 <div style="font-size: 0.9em; color: #555;">{{ $item->description }}</div>
@@ -115,16 +115,20 @@
 
     <!-- Signature Section -->
     <table style="width: 90%; font-size: 10px; position: absolute; bottom: 130px; left: 40px; right: 80px;">
+
         <tr>
-            <td style="width: 40%; vertical-align: bottom;">
-                <div style="font-weight: bold;">Paul Air & Water Technology</div>
-                <div>(082) 285-8203</div>
+            <td style=" text-align: left; font-size: 12px; color: #000; width: 50%;">
+                <strong>Bank:</strong> BDO Unibank <br>
+                <strong>Account Name:</strong> PHVAC or RBELTRAN AND SONS VENTURES INC. <br>
+                <strong>Account No.:</strong> 014028003493 
             </td>
-            <td style="width: 60%; text-align: right; vertical-align: bottom;">
+            <td style="width: 40%; text-align: right; vertical-align: bottom;">
                 <div>Received by: _______________________________</div>
                 <div style="font-size: 9px; margin-top: 3px; text-align: right; padding-right: 20px;">Signature Over Printed
                     Name</div>
             </td>
         </tr>
+
+
     </table>
 @endsection

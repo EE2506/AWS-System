@@ -1,44 +1,77 @@
-# AWS-System - Document Automation Platform
+# AWS-System
 
-AWS-System is a role-based web application designed to automate the creation, management, and distribution of business documents. It acts as a specialized, document-focused Google Drive for structured business records like Statements of Account, Purchase Orders, Quotations, and Delivery Receipts.
+AWS-System is a role-based document automation platform for creating, managing, previewing, and sharing business documents. It is built as a Laravel + Inertia.js app with a Vue 3 frontend and is focused on structured document entry, branded PDF output, and secure public sharing.
 
-## 🚀 Features
+GitHub repository: https://github.com/EE2506/AWS-System
 
-*   **Role-Based Access Control (RBAC):** Distinct Admin and User roles ensuring users only see their own documents while Admins have full system control.
-*   **Automated Document Creation:** Streamlined data entry forms that map directly to professional PDFs.
-*   **Auto-Incrementing Control Numbers:** Smart, prefix-based control numbers (e.g., `S-1004`, `PO-1001`) that automatically increment per document type.
-*   **Client Auto-Suggest:** Intelligent dropdowns that remember past clients and auto-fill contact details to speed up data entry.
-*   **PDF Generation:** Server-side generation of high-quality PDFs with precise formatting.
-*   **Secure Sharing:** Generate temporary, secure public links to share documents directly with clients.
+## Overview
 
-## 🛠️ Tech Stack
+The application currently supports:
 
-*   **Backend:** Laravel 11, Breeze / Sanctum, Spatie Permission
-*   **Frontend:** Vue 3 (Composition API), Inertia.js
-*   **Styling:** Tailwind CSS v4.1, shadcn/vue, Magic UI
-*   **Database:** SQLite (Local) / MySQL (Production)
-*   **PDF Engine:** DomPDF / Snappy
+* authenticated document creation and editing
+* role-based access control for Admin and User accounts
+* server-side PDF generation with multi-page templates
+* shareable public links with expiry controls
+* responsive document detail and public view pages
+* client auto-suggest in the document form
+* branded layouts with updated logo assets
 
-## 💻 Local Development
+## Supported Documents
 
-1. Clone the repository
-2. Install PHP dependencies: `composer install`
-3. Install Node dependencies: `npm install`
-4. Copy `.env.example` to `.env` and configure your database
-5. Generate application key: `php artisan key:generate`
-6. Run migrations (and seeders if applicable): `php artisan migrate`
-7. Start the development server: `php artisan serve`
-8. Start the Vite bundler: `npm run dev`
+* Statement of Account (SOA)
+* Purchase Order (PO)
+* Quotation (QT)
+* Delivery Receipt (DR)
 
-## 📦 Production Deployment
+## Tech Stack
 
-To build the frontend assets for production (e.g., on Hostinger shared hosting):
+* Backend: Laravel 11
+* Frontend: Vue 3 + Inertia.js
+* Styling: Tailwind CSS v4.1
+* UI: shadcn/ui-style components and Magic UI
+* RBAC: Spatie Laravel Permission
+* Database: SQLite for local development, MySQL for production
+* PDF Engine: DomPDF / Snappy
+
+## Key Features
+
+* Role-based document access for Admin and User roles
+* Document forms for SOA, PO, Quotation, and Delivery Receipt
+* Auto-calculated totals and discount handling
+* Recent-client auto-suggestions to speed up data entry
+* Public document sharing with expiring links
+* Copy-link and revoke-link actions from the document detail page
+* PDF preview and download from both private and public views
+* Responsive layouts for desktop and mobile
+
+## Local Development
+
+1. Clone the repository from GitHub:
+
+```bash
+git clone https://github.com/EE2506/AWS-System.git
+cd AWS-System
+```
+
+2. Install PHP dependencies with `composer install`.
+3. Install Node dependencies with `npm install`.
+4. Copy `.env.example` to `.env` and configure the database connection.
+5. Generate an application key with `php artisan key:generate`.
+6. Run migrations with `php artisan migrate`.
+7. Seed roles and starter data if needed with `php artisan db:seed`.
+8. Start the Laravel app with `php artisan serve`.
+9. Start the frontend build watcher with `npm run dev`.
+
+## Production Build
+
+Build the frontend assets before deploying:
+
 ```bash
 npm run build
 ```
 
-## 📄 Supported Documents
-*   Statement of Account (SOA)
-*   Purchase Order (PO)
-*   Quotation (QT)
-*   Delivery Receipt (DR)
+## Notes
+
+* The app uses updated branded logo assets in authenticated, guest, and public views.
+* Public links are time-limited and show expiry state in the UI.
+* PDF templates were updated for cleaner pagination and more consistent totals.
