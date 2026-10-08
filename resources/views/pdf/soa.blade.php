@@ -22,8 +22,31 @@
 
     @php
         $showPricing = true;
-        $itemsPerPage = 10;
-        $itemChunks = $document->items->chunk($itemsPerPage);
+        $pageCapacity = 10;
+        $itemChunks = collect();
+        $currentChunk = collect();
+        $currentChunkCost = 0;
+
+        foreach ($document->items as $item) {
+            $description = str_replace(["\r\n", "\r"], "\n", (string) $item->description);
+            $descriptionLineCount = count(explode("\n", $description));
+            $descriptionWrapCount = max(1, (int) ceil(strlen($description) / 70));
+            $itemCost = max(1, (int) ceil(($descriptionLineCount + $descriptionWrapCount) / 2));
+
+            if ($currentChunk->isNotEmpty() && $currentChunkCost + $itemCost > $pageCapacity) {
+                $itemChunks->push($currentChunk);
+                $currentChunk = collect();
+                $currentChunkCost = 0;
+            }
+
+            $currentChunk->push($item);
+            $currentChunkCost += $itemCost;
+        }
+
+        if ($currentChunk->isNotEmpty()) {
+            $itemChunks->push($currentChunk);
+        }
+
         $totalChunks = $itemChunks->count();
     @endphp
 
@@ -49,7 +72,7 @@
                         <td style="border: 1px solid #000; padding: 6px; word-break: break-word; overflow-wrap: break-word; white-space: normal;">
                             <div>{{ $item->name }}</div>
                             @if($item->description)
-                                <div style="font-size: 0.9em; color: #555;">{{ $item->description }}</div>
+                                @include('pdf.partials.item-description', ['description' => $item->description])
                             @endif
                         </td>
                         @if($showPricing)

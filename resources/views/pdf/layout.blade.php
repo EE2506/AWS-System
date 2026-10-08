@@ -189,6 +189,18 @@
             background-color: #f8fafc;
         }
 
+        .item-description-title {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .item-description-body {
+            margin-top: 2px;
+            font-size: 0.9em;
+            line-height: 1.35;
+            white-space: normal;
+        }
+
         /* Totals */
         .totals-section {
             margin-top: 20px;

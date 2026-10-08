@@ -54,8 +54,7 @@
                     <td style="text-align: center; border: 1px solid black; padding: 5px; word-break: break-word; overflow-wrap: break-word; white-space: normal;">
                         <div style="font-weight: bold; text-transform: uppercase;">{{ $item->name }}</div>
                         @if($item->description)
-                            <div style="font-size: 0.9em; text-transform: uppercase; margin-top: 2px;">{{ $item->description }}
-                            </div>
+                            @include('pdf.partials.item-description', ['description' => $item->description])
                         @endif
                         @if($item->remarks)
                             <div style="font-size: 0.8em; color: #555; margin-top: 2px;">{{ $item->remarks }}</div>
