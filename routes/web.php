@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicDocumentController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, '__invoke']);
 
@@ -14,6 +13,9 @@ Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics.index');
+    Route::get('/analytics/export', [AnalyticsController::class, 'export'])->name('analytics.export');
+
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -40,4 +42,4 @@ Route::middleware('auth')->group(function () {
 Route::get('/shared/document/{token}', [PublicDocumentController::class, 'show'])->name('public.document.show');
 Route::get('/shared/document/{token}/download', [PublicDocumentController::class, 'download'])->name('public.document.download');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
